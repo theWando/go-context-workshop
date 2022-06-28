@@ -30,7 +30,7 @@ func main() {
 	}
 
 	client := &http.Client{
-		Timeout: time.Second,
+		Timeout: 20 * time.Millisecond,
 	}
 	resp, err := client.Do(req)
 	if err != nil {

@@ -3,15 +3,18 @@ package main
 import (
 	"context"
 	"fmt"
+	"time"
 )
 
-func gen(ctx context.Context) <-chan int {
+func gen(_ context.Context) <-chan int {
 	out := make(chan int)
 	var i int
 	go func() {
+		defer fmt.Println("closing go routine")
 		for {
 			select {
 			case out <- i:
+				fmt.Println("sending ", i)
 				i++
 			}
 		}
@@ -27,4 +30,5 @@ func main() {
 			break
 		}
 	}
+	time.Sleep(3 * time.Second)
 }

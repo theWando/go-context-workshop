@@ -11,7 +11,7 @@ func GetTraceabilityHeaders(ctx context.Context) http.Header {
 	return ctx.Value(traceKey{}).(http.Header)
 }
 
-func SetTraceability(ctx context.Context, r http.Request) context.Context {
+func SetTraceability(ctx context.Context, r *http.Request) context.Context {
 	var headers http.Header
 	for k, v := range r.Header {
 		if k == "x-request-id" {

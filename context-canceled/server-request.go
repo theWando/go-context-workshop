@@ -13,11 +13,10 @@ func hello(w http.ResponseWriter, req *http.Request) {
 	defer fmt.Println("server: hello handler ended")
 
 	select {
-	case <-time.After(10 * time.Second):
+	case <-time.After(4 * time.Second):
 		fmt.Println("returned a hello")
 		fmt.Fprintf(w, "hello\n")
 	case <-ctx.Done():
-
 		err := ctx.Err()
 		fmt.Println("server:", err)
 		internalError := http.StatusInternalServerError

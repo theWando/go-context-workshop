@@ -10,9 +10,11 @@ func gen(ctx context.Context) <-chan int {
 	out := make(chan int)
 	var i int
 	go func() {
+		defer fmt.Println("closing go routine")
 		for {
 			select {
 			case out <- i:
+				fmt.Println("sending ", i)
 				time.Sleep(200 * time.Millisecond)
 				i++
 			case <-ctx.Done():
@@ -35,4 +37,5 @@ func main() {
 		}
 	}
 	time.Sleep(time.Second)
+	fmt.Println("bye!")
 }
